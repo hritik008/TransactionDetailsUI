@@ -1,0 +1,61 @@
+<div class="conatiner w-50 d-flex flex-row py-1 border border-dark border-3 mt-4 mx-auto">
+    <h1 class="fw-bold mb-0 ms-3">←</h1>
+
+    <div class="container row align-items-center ms-2 rounded-circle fw-bold"
+    style="width: 55px;height: 50px;background-color: rgb(103, 236, 213);">J
+    </div>
+
+    <div class="ms-3 d-flex flex-column mt-2">
+        <h6 class=" mb-0 ms-2">John Doe</h6>
+        <h6>+91 7672 2345</h6>
+    </div>
+    
+</div>
+<div class="container w-50 border border-dark border-3 px-0 py-3 mb-3">
+    <div *ngFor="let transactions of transactionInfo">
+        <div class="separation" *ngIf="!isPresent(transactions.transactionDate)">{{transactions.transactionDate}}</div>
+        <div class="transactions-container my-3 ms-auto border border-3 border-dark me-5 p-3 mb-1" *ngIf="transactions.transaction==='debit'">
+            <div class="d-flex justify-content-between">
+                <h1>{{transactions.amount}}</h1>
+                <div class="my-auto">
+                    <span>{{transactions.requested?"🔗":"✔"}}</span>
+                    You<span>{{transactions.requested? " requested": " paid"}}</span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div *ngIf="!transactions.requested">
+                    <p class="mb-0">Transaction ID</p>
+                    <p class="mb-0">{{transactions.transactionId}}</p>
+                </div>
+                <div *ngIf="transactions.requested">
+                    <button class="btn btn-outline-secondary px-5">Cancel</button>
+                </div>
+                <img src="assets/right-direction.png" width="25px" height="25px" style="margin-top: 10px;">
+            </div>
+        </div>
+        <div class="transactions-container my-3 ms-5 border border-3 border-dark p-3 mb-1" *ngIf="transactions.transaction==='credit'">
+            <div class="d-flex justify-content-between">
+                <h1>{{transactions.amount}}</h1>
+                <div class="my-auto">
+                    <span>{{transactions.requested?"🔗":"✔"}}</span>
+                    {{transactions.requested? " Request ": " You "}}<span> received</span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div *ngIf="!transactions.requested">
+                    <p class="mb-0">Transaction ID</p>
+                    <p class="mb-0">{{transactions.transactionId}}</p>
+                </div>
+                <div *ngIf="transactions.requested">
+                    <button class="btn btn-outline-secondary px-5">Pay</button>
+                    <button class="btn btn-outline-secondary px-5 ms-2">Decline</button>
+                </div>
+                <img src="assets/right-direction.png" width="25px" height="25px" style="margin-top: 10px;">
+            </div>
+        </div>
+        <p style="margin-left: 66%;" *ngIf="transactions.transaction === 'debit'">{{transactions.transactionDate+", "+transactions.time}}</p>
+        <p style="margin-left: 41%;" *ngIf="transactions.transaction === 'credit'">{{transactions.transactionDate+", "+transactions.time}}</p>
+    </div>
+</div>
+
+    
